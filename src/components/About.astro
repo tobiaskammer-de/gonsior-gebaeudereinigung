@@ -5,27 +5,30 @@ import { company } from '../data/site.js';
   <div class="shell meister-shell">
 
     <div class="meister-text">
-      <span class="kicker">§ 02 — Inhaber</span>
+      <span class="kicker">§ 02 — Über uns</span>
       <h2 class="section-title">
-        {company.ownerFirst} {company.ownerLast}.<br/>
-        <em>Sieht zu, dass es sauber wird.</em>
+        Ihr verlässlicher<br/>
+        <em>Ansprechpartner.</em>
       </h2>
       <p class="prose">
-        Hinter {company.name} steht keine Hotline und kein
-        Callcenter, sondern <strong>{company.ownerFirst} {company.ownerLast} persönlich</strong>.
-        Sie schreiben mir auf WhatsApp, rufen mich an oder treffen mich
-        beim ersten Termin vor Ort. So bleibt es schon seit Jahren
-        zwischen {company.district} und Innenstadt.
+        Gonsior Gebäudereinigung ist Ihr verlässlicher Ansprechpartner
+        in allen Fragen rund um Hygiene und Sauberkeit — Gebäudereinigung
+        im Innen- und Gebäudepflege im Außenbereich.
+        Hinter dem Betrieb steht <strong>{company.ownerFirst} {company.ownerLast} persönlich</strong>:
+        kein Callcenter, keine Subunternehmer.
       </p>
       <p class="prose">
-        Mein Versprechen ist nicht spektakulär — es ist
-        verlässlich. Wir kommen, wenn wir gesagt haben, dass wir kommen.
-        Wir reinigen das, was vereinbart ist, und sagen Bescheid, wenn
-        wir etwas Auffälliges sehen. Wenn etwas nicht passt, regeln
-        wir es noch am selben Tag.
+        Beim ersten Termin schaue ich selbst vorbei, bespreche mit Ihnen
+        die Räume und mache Ihnen ein klares, schriftliches Angebot.
+        Was vereinbart ist, wird vereinbart eingehalten — pünktlich,
+        gründlich und mit eigenem Material.
       </p>
 
-      <ul class="badges" aria-label="Vertrauensmerkmale">
+      <ul class="badges" aria-label="Eckdaten">
+        <li>
+          <span class="badge-key">Inhaber</span>
+          <span class="badge-val">{company.ownerFirst} {company.ownerLast}</span>
+        </li>
         <li>
           <span class="badge-key">Mitglied</span>
           <span class="badge-val">Handwerks&shy;kammer Düsseldorf</span>
@@ -35,40 +38,53 @@ import { company } from '../data/site.js';
           <span class="badge-val">{company.street}, {company.zip} {company.city}</span>
         </li>
         <li>
-          <span class="badge-key">Versichert</span>
-          <span class="badge-val">Haftpflicht für gewerbliche Reinigung</span>
+          <span class="badge-key">Servicegebiet</span>
+          <span class="badge-val">{company.city} und Umgebung — Ruhrgebiet</span>
         </li>
       </ul>
     </div>
 
-    <aside class="meister-card" aria-label="Inhaber-Karte">
+    <aside class="meister-card" aria-label="Was Sie bekommen">
       <div class="card-tag">
         <span class="card-tag-dot" aria-hidden="true"></span>
-        Inhaber-geführt
+        Was Sie bekommen
       </div>
-      <blockquote class="meister-quote">
-        <p>„Wenn ich Ihnen die Treppe putze, sehen Sie das.
-          Wenn ich Ihnen das Schaufenster putze, sehen es Ihre
-          Kunden. Beides nehme ich genauso ernst."</p>
-        <footer>
-          <cite>{company.ownerFirst} {company.ownerLast}</cite>
-          <span class="quote-meta">Inhaber · {company.city}</span>
-        </footer>
-      </blockquote>
-      <dl class="card-stats">
-        <div>
-          <dt>Reaktionszeit</dt>
-          <dd>&lt; 24 Std.</dd>
-        </div>
-        <div>
-          <dt>Servicegebiet</dt>
-          <dd>{company.city} + 25 km</dd>
-        </div>
-        <div>
-          <dt>Vertragsbindung</dt>
-          <dd>flexibel</dd>
-        </div>
-      </dl>
+
+      <ul class="meister-list">
+        <li>
+          <span class="ml-num">01</span>
+          <div>
+            <strong>Festen Ansprechpartner</strong>
+            <span>Manuel Gonsior persönlich — vom ersten Anruf bis zur laufenden Reinigung.</span>
+          </div>
+        </li>
+        <li>
+          <span class="ml-num">02</span>
+          <div>
+            <strong>Vereinbarter Turnus</strong>
+            <span>Wöchentlich, 14-tägig oder nach Bedarf — wir kommen, wenn wir es zugesagt haben.</span>
+          </div>
+        </li>
+        <li>
+          <span class="ml-num">03</span>
+          <div>
+            <strong>Eigenes Material</strong>
+            <span>Profi-Ausstattung und passende Mittel — Sie müssen nichts bereitstellen.</span>
+          </div>
+        </li>
+        <li>
+          <span class="ml-num">04</span>
+          <div>
+            <strong>Schriftliches Angebot</strong>
+            <span>Klar formuliert, ohne Kleingedrucktes — und ohne lange Vertragsbindung.</span>
+          </div>
+        </li>
+      </ul>
+
+      <a class="meister-cta" href={`tel:${company.phoneIntl}`}>
+        Persönlich sprechen
+        <span>{company.phone}</span>
+      </a>
     </aside>
 
   </div>

@@ -3,8 +3,8 @@ import '../styles/global.css';
 import { company } from '../data/site.js';
 
 const {
-  title = `${company.name} ${company.city} — Sauberkeit, mit Handschlag.`,
-  description = `Inhabergeführte Gebäudereinigung in ${company.city} und Umgebung. Glas-, Unterhalts-, Treppenhausreinigung und Sonderleistungen — verlässlich, freundlich, gründlich. ${company.hwk}.`,
+  title = `${company.name} ${company.city} — Sauberkeit & Service vom Profi`,
+  description = `Glas-, Unterhalts- und Treppenhausreinigung in ${company.city} und Umgebung. Inhabergeführt von ${company.ownerFirst} ${company.ownerLast}. Für Gewerbe und Privat. ${company.hwk}.`,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;

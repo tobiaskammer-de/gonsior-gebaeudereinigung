@@ -695,64 +695,74 @@ button { font: inherit; cursor: pointer; }
   border-radius: 50%;
 }
 
-.meister-quote {
-  margin: 0 0 var(--s-7);
-  border: none;
-  padding: 0;
-}
-.meister-quote p {
-  font-family: var(--serif);
-  font-size: clamp(1.35rem, 1.05rem + 1vw, 1.75rem);
-  line-height: 1.30;
-  color: var(--paper);
-  letter-spacing: -0.012em;
-  margin-bottom: var(--s-5);
-  max-width: none;
-}
-.meister-quote footer {
+.meister-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  font-style: normal;
+  gap: 0;
+  margin: 0 0 var(--s-6);
+  padding: 0;
+  list-style: none;
 }
-.meister-quote cite {
-  font-style: normal;
-  font-weight: 600;
-  color: var(--paper);
-  font-size: 0.96rem;
+.meister-list li {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: var(--s-3);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid color-mix(in oklch, var(--paper) 16%, transparent);
+  align-items: start;
 }
-.quote-meta {
+.meister-list li:last-child { border-bottom: none; }
+.ml-num {
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: color-mix(in oklch, var(--paper) 60%, transparent);
+  color: var(--green-soft);
+  padding-top: 4px;
+  font-weight: 500;
+}
+.meister-list li > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.meister-list li strong {
+  color: var(--paper);
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: var(--sans);
+  letter-spacing: -0.005em;
+}
+.meister-list li span {
+  color: color-mix(in oklch, var(--paper) 70%, transparent);
+  font-size: 0.92rem;
+  line-height: 1.45;
 }
 
-.card-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--s-4);
-  margin: 0;
-  padding-top: var(--s-5);
-  border-top: 1px solid color-mix(in oklch, var(--paper) 18%, transparent);
+.meister-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 14px 18px;
+  background: var(--green);
+  color: var(--paper);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.96rem;
+  transition: background .2s var(--ease-out), transform .2s var(--ease-out);
 }
-.card-stats div { display: flex; flex-direction: column; gap: 4px; }
-.card-stats dt {
+.meister-cta span {
   font-family: var(--mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: color-mix(in oklch, var(--paper) 55%, transparent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: color-mix(in oklch, var(--paper) 90%, transparent);
 }
-.card-stats dd {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 1.15rem;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: var(--green-soft);
+.meister-cta:hover {
+  background: var(--green-soft);
+  color: var(--ink);
+  transform: translateY(-1px);
 }
+.meister-cta:hover span { color: var(--ink); }
 
 /* -----------------------------------------------------------
    8. Ablauf
