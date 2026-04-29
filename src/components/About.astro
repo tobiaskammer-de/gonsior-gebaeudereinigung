@@ -1,0 +1,75 @@
+---
+import { company } from '../data/site.js';
+---
+<section class="meister" id="meister">
+  <div class="shell meister-shell">
+
+    <div class="meister-text">
+      <span class="kicker">§ 02 — Inhaber</span>
+      <h2 class="section-title">
+        {company.ownerFirst} {company.ownerLast}.<br/>
+        <em>Sieht zu, dass es sauber wird.</em>
+      </h2>
+      <p class="prose">
+        Hinter {company.name} steht keine Hotline und kein
+        Callcenter, sondern <strong>{company.ownerFirst} {company.ownerLast} persönlich</strong>.
+        Sie schreiben mir auf WhatsApp, rufen mich an oder treffen mich
+        beim ersten Termin vor Ort. So bleibt es schon seit Jahren
+        zwischen {company.district} und Innenstadt.
+      </p>
+      <p class="prose">
+        Mein Versprechen ist nicht spektakulär — es ist
+        verlässlich. Wir kommen, wenn wir gesagt haben, dass wir kommen.
+        Wir reinigen das, was vereinbart ist, und sagen Bescheid, wenn
+        wir etwas Auffälliges sehen. Wenn etwas nicht passt, regeln
+        wir es noch am selben Tag.
+      </p>
+
+      <ul class="badges" aria-label="Vertrauensmerkmale">
+        <li>
+          <span class="badge-key">Mitglied</span>
+          <span class="badge-val">Handwerks&shy;kammer Düsseldorf</span>
+        </li>
+        <li>
+          <span class="badge-key">Sitz</span>
+          <span class="badge-val">{company.street}, {company.zip} {company.city}</span>
+        </li>
+        <li>
+          <span class="badge-key">Versichert</span>
+          <span class="badge-val">Haftpflicht für gewerbliche Reinigung</span>
+        </li>
+      </ul>
+    </div>
+
+    <aside class="meister-card" aria-label="Inhaber-Karte">
+      <div class="card-tag">
+        <span class="card-tag-dot" aria-hidden="true"></span>
+        Inhaber-geführt
+      </div>
+      <blockquote class="meister-quote">
+        <p>„Wenn ich Ihnen die Treppe putze, sehen Sie das.
+          Wenn ich Ihnen das Schaufenster putze, sehen es Ihre
+          Kunden. Beides nehme ich genauso ernst."</p>
+        <footer>
+          <cite>{company.ownerFirst} {company.ownerLast}</cite>
+          <span class="quote-meta">Inhaber · {company.city}</span>
+        </footer>
+      </blockquote>
+      <dl class="card-stats">
+        <div>
+          <dt>Reaktionszeit</dt>
+          <dd>&lt; 24 Std.</dd>
+        </div>
+        <div>
+          <dt>Servicegebiet</dt>
+          <dd>{company.city} + 25 km</dd>
+        </div>
+        <div>
+          <dt>Vertragsbindung</dt>
+          <dd>flexibel</dd>
+        </div>
+      </dl>
+    </aside>
+
+  </div>
+</section>

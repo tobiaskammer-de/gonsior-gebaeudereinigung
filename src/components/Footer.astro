@@ -1,0 +1,47 @@
+---
+import { company, nav } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<footer class="site-footer">
+  <div class="shell footer-shell">
+
+    <div class="footer-brand">
+      <img src={`${base}/assets/logo.jpg`} alt={`${company.name} Logo`} width="510" height="215" />
+      <p class="footer-tag">Sauberkeit &amp; Service vom Profi.<br/>Aus {company.city}-{company.district}. Seit Jahren verlässlich.</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footernavigation">
+      <h3>Navigieren</h3>
+      {nav.map(n => <a href={`#${n.id}`}>{n.label}</a>)}
+    </nav>
+
+    <address class="footer-impressum">
+      <h3>Impressum</h3>
+      <p>
+        {company.ownerFirst} {company.ownerLast}<br/>
+        {company.street}<br/>
+        {company.zip} {company.city}
+      </p>
+      <p>
+        <a href={`tel:${company.phoneIntl}`}>{company.phone}</a><br/>
+        <a href={`mailto:${company.email}`}>{company.email}</a>
+      </p>
+      <p class="footer-fine">
+        {company.hwk}.<br/>
+        Plattform der EU-Kommission zur Online-Streitbeilegung:
+        <a href="https://ec.europa.eu/consumers/odr">ec.europa.eu/consumers/odr</a>.
+        Zur Teilnahme an einem Streitbeilegungsverfahren vor einer
+        Verbraucherschlichtungsstelle weder verpflichtet noch bereit.
+      </p>
+    </address>
+
+  </div>
+
+  <div class="footer-baseline">
+    <div class="shell baseline-shell">
+      <span>© <span data-year>2025</span> {company.name} · {company.city}</span>
+      <span class="baseline-dot" aria-hidden="true">·</span>
+      <span>Eine Seite, ehrlich gemacht.</span>
+    </div>
+  </div>
+</footer>

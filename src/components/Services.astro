@@ -1,0 +1,43 @@
+---
+import { services } from '../data/site.js';
+
+const ICONS = {
+  window: `<rect x="14" y="14" width="92" height="92" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="60" y1="14" x2="60" y2="106" stroke="currentColor" stroke-width="1.2"/><line x1="14" y1="60" x2="106" y2="60" stroke="currentColor" stroke-width="1.2"/><path d="M22 22 L48 48 M40 22 L48 30" stroke="currentColor" stroke-width="0.9" opacity=".55"/>`,
+  house:  `<path d="M20 100 L20 40 L60 18 L100 40 L100 100 Z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M20 100 L100 100" stroke="currentColor" stroke-width="1.2"/><path d="M48 100 L48 70 L72 70 L72 100" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M30 50 L30 88 M40 50 L40 65 M80 50 L80 88 M90 50 L90 65" stroke="currentColor" stroke-width="0.9" opacity=".5"/>`,
+  stairs: `<path d="M14 100 L34 100 L34 80 L54 80 L54 60 L74 60 L74 40 L94 40 L94 20 L106 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="miter"/><path d="M14 100 L106 100" stroke="currentColor" stroke-width="1.2"/>`,
+  circle: `<circle cx="60" cy="60" r="44" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M60 16 L60 104 M16 60 L104 60 M28 28 L92 92 M28 92 L92 28" stroke="currentColor" stroke-width="0.9" opacity=".55"/>`,
+};
+---
+<section class="leistungen" id="leistungen">
+  <div class="shell">
+    <header class="section-head">
+      <span class="kicker">§ 01 — Leistungen</span>
+      <h2 class="section-title">
+        Vier Disziplinen.<br/>
+        <em>Eine Handschrift.</em>
+      </h2>
+      <p class="section-lede">
+        Vom Schaufenster bis zum Treppenhaus — wir arbeiten dort,
+        wo Sauberkeit den Eindruck Ihrer Immobilie prägt.
+      </p>
+    </header>
+
+    <ol class="services">
+      {services.map(s => (
+        <li class="service">
+          <span class="service-num">{s.num}</span>
+          <div class="service-body">
+            <h3 class="service-title">{s.title}</h3>
+            <p class="service-desc">{s.desc}</p>
+            <ul class="service-list">
+              {s.items.map(i => <li>{i}</li>)}
+            </ul>
+          </div>
+          <div class="service-art" aria-hidden="true">
+            <svg viewBox="0 0 120 120" set:html={ICONS[s.icon]} />
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

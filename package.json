@@ -1,0 +1,17 @@
+{
+  "name": "gonsior-gebaeudereinigung",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "One-Pager fuer Gonsior Gebaeudereinigung Essen",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.1.0"
+  }
+}

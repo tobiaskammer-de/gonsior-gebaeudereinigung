@@ -1,0 +1,22 @@
+---
+import { company, nav } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<header class="site-header" data-header>
+  <div class="shell header-shell">
+    <a class="brand" href="#top" aria-label={`${company.name} — Startseite`}>
+      <img class="brand-mark" src={`${base}/assets/logo.jpg`} alt="" width="510" height="215" />
+      <span class="brand-text">
+        <span class="brand-name">{company.shortName}</span>
+        <span class="brand-sub">Gebäudereinigung · {company.city}</span>
+      </span>
+    </a>
+    <nav class="primary-nav" aria-label="Hauptnavigation">
+      {nav.map(n => <a href={`#${n.id}`}>{n.label}</a>)}
+    </nav>
+    <a class="header-cta" href={`tel:${company.phoneIntl}`}>
+      <span class="header-cta-label">Anrufen</span>
+      <span class="header-cta-num">{company.phone}</span>
+    </a>
+  </div>
+</header>

@@ -1,0 +1,29 @@
+---
+import { districts } from '../data/site.js';
+---
+<section class="gebiet" id="gebiet">
+  <div class="shell gebiet-shell">
+
+    <header class="section-head">
+      <span class="kicker">§ 04 — Servicegebiet</span>
+      <h2 class="section-title">
+        Wir sind aus Essen.<br/>
+        <em>Und reinigen, wo wir wohnen.</em>
+      </h2>
+      <p class="section-lede">
+        Schwerpunkt sind die nördlichen und westlichen Stadtteile —
+        innerhalb des Ruhrgebiets sind wir mit kurzen Wegen unterwegs.
+      </p>
+    </header>
+
+    <ul class="districts" aria-label="Stadtteile, in denen wir arbeiten">
+      {districts.map(d => <li>{d}</li>)}
+    </ul>
+
+    <p class="gebiet-note">
+      Ihr Stadtteil ist nicht dabei? Fragen Sie trotzdem an —
+      wir machen oft Ausnahmen für nette Anfragen.
+    </p>
+
+  </div>
+</section>
