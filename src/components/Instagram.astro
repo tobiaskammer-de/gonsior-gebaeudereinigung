@@ -1,89 +1,106 @@
 ---
-import { company, instagramPosts } from '../data/site.js';
+import { company } from '../data/site.js';
 
-// Optional: Behold.so Feed-ID. Wenn gesetzt, wird das Widget
-// geladen und ueberschreibt die Platzhalter mit echten Posts.
-// Anleitung in der README.
+// LIVE INSTAGRAM FEED via Behold.so
+// ---------------------------------
+// Behold.so ist ein kostenloser Drittanbieter, der den Instagram-Feed
+// lädt und alle paar Stunden automatisch aktualisiert. Kein API-Token,
+// keine Wartung, kein Server.
+//
+// 2-Min-Setup (einmalig):
+//   1) https://behold.so   → Sign up (kostenlos, kein Limit für 1 Feed)
+//   2) "+ New Feed" → Instagram → euer Profil verbinden
+//   3) Feed-ID kopieren (z. B. abcd1234-uvwx-5678)
+//   4) Diese Variable im GitHub-Repo setzen:
+//        Settings → Secrets and variables → Actions → Variables
+//        → "New repository variable" → Name: BEHOLD_ID, Value: <Feed-ID>
+//   5) Re-deploy (push oder "Run workflow") — fertig.
+//
+// Lokal entwickeln? Eine .env-Datei anlegen:
+//        PUBLIC_BEHOLD_ID=eure-feed-id
+
 const beholdId = import.meta.env.PUBLIC_BEHOLD_ID || '';
-
-const TILE_PATTERNS = [
-  // window grid
-  `<rect width="100" height="100" fill="currentColor" opacity=".08"/><rect x="14" y="14" width="72" height="72" rx="2" fill="none" stroke="currentColor" stroke-width="0.7" opacity=".55"/><line x1="50" y1="14" x2="50" y2="86" stroke="currentColor" stroke-width="0.5" opacity=".5"/><line x1="14" y1="50" x2="86" y2="50" stroke="currentColor" stroke-width="0.5" opacity=".5"/>`,
-  // staircase
-  `<rect width="100" height="100" fill="currentColor" opacity=".08"/><path d="M10 80 L30 80 L30 60 L50 60 L50 40 L70 40 L70 20 L90 20" stroke="currentColor" stroke-width="0.8" fill="none" opacity=".55"/><line x1="0" y1="80" x2="100" y2="80" stroke="currentColor" stroke-width="0.4" opacity=".4"/>`,
-  // house
-  `<rect width="100" height="100" fill="currentColor" opacity=".08"/><path d="M20 80 L20 40 L50 22 L80 40 L80 80 Z" fill="none" stroke="currentColor" stroke-width="0.7" opacity=".55"/><path d="M40 80 L40 60 L60 60 L60 80" fill="none" stroke="currentColor" stroke-width="0.7" opacity=".55"/>`,
-  // disc
-  `<rect width="100" height="100" fill="currentColor" opacity=".08"/><circle cx="50" cy="50" r="32" fill="none" stroke="currentColor" stroke-width="0.7" opacity=".55"/><path d="M50 18 L50 82 M18 50 L82 50" stroke="currentColor" stroke-width="0.5" opacity=".4"/>`,
-  // squares
-  `<rect width="100" height="100" fill="currentColor" opacity=".08"/><rect x="22" y="22" width="56" height="56" rx="2" fill="none" stroke="currentColor" stroke-width="0.7" opacity=".55"/><rect x="32" y="32" width="36" height="36" rx="1" fill="none" stroke="currentColor" stroke-width="0.5" opacity=".4"/>`,
-];
-
-const TONE_TO_VAR = {
-  deep: 'var(--green-deep)',
-  mid:  'var(--green)',
-  ink:  'var(--ink)',
-};
+const hasLiveFeed = !!beholdId;
 ---
 <section class="insta" id="insta">
   <div class="shell insta-shell">
 
     <header class="insta-head">
-      <span class="kicker">§ 05 — Instagram</span>
-      <h2 class="section-title">
-        Aus dem Arbeitsalltag.<br/>
-        <em>@{company.instagram}.</em>
-      </h2>
-      <p class="section-lede">
-        Kleine Eindrücke aus laufenden Aufträgen — gezeigt, wie es ist:
-        ehrlich, mit dem Eimer in der Hand. Folgen Sie uns auf Instagram,
-        wenn Sie ein Gefühl dafür wollen, wie wir arbeiten.
-      </p>
-      <a class="btn btn-ghost insta-cta" href={company.instagramUrl} target="_blank" rel="noopener">
+      <div class="insta-head-text">
+        <span class="kicker">§ 05 — Instagram</span>
+        <h2 class="section-title">
+          Aus dem Arbeitsalltag.<br/>
+          <em>@{company.instagram}.</em>
+        </h2>
+        <p class="section-lede">
+          Kleine Eindrücke aus laufenden Aufträgen — gezeigt, wie es ist:
+          ehrlich, mit dem Eimer in der Hand. Folgen Sie uns auf Instagram,
+          wenn Sie ein Gefühl dafür wollen, wie wir arbeiten.
+        </p>
+      </div>
+      <a class="btn btn-primary insta-cta" href={company.instagramUrl} target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
           <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
           <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
         </svg>
         @{company.instagram} folgen
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 17 L17 7 M9 7 H17 V15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </header>
 
-    {beholdId ? (
-      <div class="insta-grid insta-grid--behold">
+    {hasLiveFeed ? (
+      <div class="insta-live">
+        <div class="insta-live-strip">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span class="live-label">Live-Feed</span>
+          <span class="live-meta">Direkt aus dem Instagram-Profil — aktualisiert sich von selbst.</span>
+        </div>
         <behold-widget feed-id={beholdId}></behold-widget>
+        <script type="module" src="https://w.behold.so/widget.js" is:inline></script>
       </div>
-      <script type="module" src="https://w.behold.so/widget.js"></script>
     ) : (
-      <ol class="insta-grid">
-        {instagramPosts.map((p, i) => (
-          <li class="insta-tile">
-            <a href={company.instagramUrl} target="_blank" rel="noopener" aria-label="Instagram-Beitrag öffnen">
-              <span class="tile-bg" style={`color:${TONE_TO_VAR[p.tone] ?? 'var(--green)'}`}>
-                <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" set:html={TILE_PATTERNS[i % TILE_PATTERNS.length]} />
-              </span>
-              <span class="tile-meta">
-                <span class="tile-tag">{p.tag}</span>
-                <span class="tile-date">{p.date}</span>
-              </span>
-            </a>
-          </li>
-        ))}
-        <li class="insta-tile insta-tile--cta">
-          <a href={company.instagramUrl} target="_blank" rel="noopener">
-            <span class="tile-cta">
-              <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
-                <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/>
-                <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
-              </svg>
-              <span class="tile-cta-line">Mehr auf Instagram</span>
-              <span class="tile-cta-handle">@{company.instagram} →</span>
-            </span>
-          </a>
-        </li>
-      </ol>
+      <div class="insta-fallback">
+        <div class="insta-fallback-card">
+          <div class="phone-frame" aria-hidden="true">
+            <div class="phone-bar"><span></span></div>
+            <div class="phone-screen">
+              <div class="phone-profile">
+                <div class="phone-avatar"></div>
+                <div class="phone-handle">
+                  <strong>@{company.instagram}</strong>
+                  <span>Gonsior Gebäudereinigung · Essen</span>
+                </div>
+              </div>
+              <div class="phone-grid">
+                <div></div><div></div><div></div>
+                <div></div><div></div><div></div>
+              </div>
+            </div>
+          </div>
+          <div class="insta-fallback-copy">
+            <span class="kicker">Live-Feed bereit zum Aktivieren</span>
+            <h3>Die letzten Posts erscheinen hier — sobald der Behold-Feed verbunden ist.</h3>
+            <p>
+              Behold.so ist kostenlos, dauert 2 Minuten zum Einrichten und holt
+              den Feed alle paar Stunden frisch nach. Bis dahin verlinken alle
+              Buttons direkt aufs Instagram-Profil.
+            </p>
+            <div class="insta-fallback-actions">
+              <a class="btn btn-primary" href={company.instagramUrl} target="_blank" rel="noopener">
+                Auf Instagram ansehen
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 17 L17 7 M9 7 H17 V15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="btn btn-ghost" href="https://behold.so" target="_blank" rel="noopener">
+                Behold-Setup öffnen
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <p class="insta-fallback-hint">
+              In <code>README.md</code> ist die Schritt-für-Schritt-Anleitung dokumentiert.
+            </p>
+          </div>
+        </div>
+      </div>
     )}
 
   </div>

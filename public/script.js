@@ -2,6 +2,8 @@
 // (no framework, no build step — just sprinkle.)
 
 (() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // 1. Sticky-header border once user scrolls past the top
   const header = document.querySelector('[data-header]');
   if (header) {
@@ -17,9 +19,9 @@
   if (year) year.textContent = new Date().getFullYear();
 
   // 3. Subtle reveal on scroll for sections
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if ('IntersectionObserver' in window && !reduced) {
     const targets = document.querySelectorAll(
-      '.service, .step, .badges li, .kontakt-card, .hero-meta li, .districts li'
+      '.service, .step, .badges li, .kontakt-card, .hero-meta li, .districts li, .insta-tile'
     );
     targets.forEach(el => {
       el.style.opacity = '0';
@@ -60,5 +62,51 @@
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
     map.forEach((_, sec) => io.observe(sec));
+  }
+
+  // 5. Mobile nav drawer
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const dialog = document.getElementById('mobile-nav');
+  const closeBtn = document.querySelector('[data-nav-close]');
+
+  if (toggle && dialog) {
+    const open = () => {
+      if (typeof dialog.showModal === 'function') {
+        try { dialog.showModal(); } catch { dialog.setAttribute('open', ''); }
+      } else {
+        dialog.setAttribute('open', '');
+      }
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('nav-open');
+    };
+    const close = () => {
+      if (typeof dialog.close === 'function' && dialog.open) {
+        try { dialog.close(); } catch { dialog.removeAttribute('open'); }
+      } else {
+        dialog.removeAttribute('open');
+      }
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-open');
+    };
+
+    toggle.addEventListener('click', () => dialog.open ? close() : open());
+    closeBtn?.addEventListener('click', close);
+
+    // Close when a nav link is clicked (so smooth-scroll works on the main page)
+    dialog.querySelectorAll('[data-nav-link]').forEach(link => {
+      link.addEventListener('click', () => {
+        setTimeout(close, 60);
+      });
+    });
+
+    // Close on backdrop click (clicking the dialog element itself, not children)
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) close();
+    });
+
+    // Close if viewport grows past mobile breakpoint
+    const mq = window.matchMedia('(min-width: 721px)');
+    const onMQ = (e) => { if (e.matches) close(); };
+    mq.addEventListener ? mq.addEventListener('change', onMQ) : mq.addListener(onMQ);
   }
 })();
